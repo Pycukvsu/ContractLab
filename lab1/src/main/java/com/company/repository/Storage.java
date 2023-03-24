@@ -2,8 +2,15 @@ package com.company.repository;
 
 import com.company.сonracts.Contract;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.function.Predicate;
+
 /**
  * Класс хранилище
+ *
  * @autor Хачетлов Руслан
  */
 
@@ -34,6 +41,7 @@ public class Storage {
 
     /**
      * Метод проверяет, есть ли уже в хранилище контракт с таким же айди
+     *
      * @param id - айди контракта
      * @return flag - возвращает true если такого элемента нет в хранилище | false - если есть
      */
@@ -53,6 +61,7 @@ public class Storage {
      * Метод по добавлению контракта в хранилище.
      * Метод вызывает проверку на нахождении контракта с таким айди в хранилище.
      * Если количество элементов в массиве равно длине массива, то вызываем метод по расширению хранилища.
+     *
      * @param contract - контракт
      */
     public void addContract(Contract contract) {
@@ -64,11 +73,12 @@ public class Storage {
                 storage[numberOfContracts] = contract;
             }
             numberOfContracts++;
-        }else System.out.println("Контракт с таким id уже есть в хранилище");
+        } else System.out.println("Контракт с таким id уже есть в хранилище");
     }
 
     /**
      * Метод удаления контракта по айди.
+     *
      * @param id - афди контракта
      */
     public void deleteContractById(int id) {
@@ -89,6 +99,7 @@ public class Storage {
 
     /**
      * Метод получения контракта по айди.
+     *
      * @param id - айди контракта
      */
     public void getContractById(int id) {
@@ -118,5 +129,41 @@ public class Storage {
         System.out.println();
         System.out.println("Размер хранилища: " + storage.length);
         System.out.println();
+    }
+
+    public <T> List<Contract> find(Predicate<T> condition) {
+        List<Contract> contracts = new ArrayList<>();
+        for (int i = 0; i < storage.length; i++) {
+            if (storage[i] != null && condition.test((T) storage[i])) {
+                contracts.add(storage[i]);
+            }
+        }
+
+        System.out.println("Результаты поиска: ");
+
+        if (contracts.isEmpty()) {
+            System.out.println("Неудалось ничего найти");
+        }else {
+            Iterator<Contract> it = contracts.listIterator();
+            Contract contract;
+            while (it.hasNext()) {
+                contract = it.next();
+                System.out.println(contract);
+            }
+        }
+        System.out.println();
+        return contracts;
+    }
+
+    public Contract[] getStorage() {
+        return storage;
+    }
+
+    public void removeNull(){
+        for (int i = 0; i < numberOfContracts; i++) {
+            if (storage[i] == null){
+                storage[i] = storage[numberOfContracts-1];
+            }
+        }
     }
 }
