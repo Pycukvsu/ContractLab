@@ -156,6 +156,7 @@ public class Storage {
     }
 
     public Contract[] getStorage() {
+        removeNull();
         return storage;
     }
 

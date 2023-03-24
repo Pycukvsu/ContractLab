@@ -6,6 +6,6 @@ import java.util.Comparator;
 
 public interface ISorted {
 
-    void sort(Contract[] storage, Comparator<Contract> comparator);
+    <T> void sort(Contract[] storage, Comparator<Contract> comparator);
 
 }

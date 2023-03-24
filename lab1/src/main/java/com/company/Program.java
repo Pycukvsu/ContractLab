@@ -2,10 +2,10 @@ package com.company;
 
 import com.company.entities.Gender;
 import com.company.entities.Human;
-import com.company.repository.sorting.ISorted;
 import com.company.repository.Storage;
 import com.company.repository.comparators.MaxIdContractComparator;
 import com.company.repository.sorting.BubbleSort;
+import com.company.repository.sorting.ISorted;
 import com.company.ñonracts.*;
 import org.testng.annotations.Test;
 
