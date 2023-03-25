@@ -2,7 +2,7 @@ package com.company.repository;
 
 import com.company.сonracts.Contract;
 
-import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -26,14 +26,7 @@ public class Storage {
      */
     private void expandStorage() {
         Contract[] newStorage = new Contract[storage.length];
-        int j = 0;
-        for (int i = 0; i < storage.length; i++) {
-            if (storage[i] != null) {
-                newStorage[j] = storage[i];
-                j++;
-            } else numberOfContracts--;
-        }
-
+        System.arraycopy(storage,0,newStorage,0,storage.length);
         storage = new Contract[storage.length * 4];
         System.arraycopy(newStorage, 0, storage, 0, newStorage.length);
     }
@@ -79,16 +72,18 @@ public class Storage {
     /**
      * Метод удаления контракта по айди.
      *
-     * @param id - афди контракта
+     * @param id - айди контракта
      */
     public void deleteContractById(int id) {
         boolean flag = false;
         for (int i = 0; i < storage.length; i++) {
             if (storage[i] != null) {
                 if (storage[i].getId() == id) {
-                    storage[i] = null;
+                    storage[i] = storage[numberOfContracts-1];
+                    storage[numberOfContracts-1] = null;
                     System.out.println("Контракт успешно удалён");
                     flag = true;
+                    numberOfContracts--;
                 }
             }
         }
@@ -131,6 +126,12 @@ public class Storage {
         System.out.println();
     }
 
+    /**
+     * Метод реализует поиск по условию поиска, который передается предикатом
+     *
+     * @param condition - условие поиска
+     * @return contracts - возвращает список найденных контрактов
+     */
     public <T> List<Contract> find(Predicate<T> condition) {
         List<Contract> contracts = new ArrayList<>();
         for (int i = 0; i < storage.length; i++) {
@@ -156,15 +157,6 @@ public class Storage {
     }
 
     public Contract[] getStorage() {
-        removeNull();
         return storage;
-    }
-
-    public void removeNull(){
-        for (int i = 0; i < numberOfContracts; i++) {
-            if (storage[i] == null){
-                storage[i] = storage[numberOfContracts-1];
-            }
-        }
     }
 }

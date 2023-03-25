@@ -5,13 +5,12 @@ import com.company.сonracts.Contract;
 import java.util.Comparator;
 
 /**
- * Компаратор для сравнения NumberContract.
+ * Компаратор для сравнения у ContractOwner поля id.
  * @autor Хачетлов Руслан
  */
-public class MaxNumberContractComparator implements Comparator<Contract> {
-
+public class HumanIdComparator implements Comparator<Contract> {
     @Override
     public int compare(Contract o1, Contract o2) {
-        return o2.getNumberContract() - o1.getNumberContract();
+        return o2.getContractOwner().getId() - o1.getContractOwner().getId();
     }
 }

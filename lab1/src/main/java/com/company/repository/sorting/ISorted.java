@@ -1,11 +1,12 @@
 package com.company.repository.sorting;
 
+import com.company.repository.Storage;
 import com.company.ñonracts.Contract;
 
 import java.util.Comparator;
 
 public interface ISorted {
 
-    <T> void sort(Contract[] storage, Comparator<Contract> comparator);
+    void sort(Storage storage, Comparator<Contract> comparator);
 
 }

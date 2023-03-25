@@ -4,6 +4,10 @@ import com.company.сonracts.Contract;
 
 import java.util.Comparator;
 
+/**
+ * Компаратор для сравнения EndDate.
+ * @autor Хачетлов Руслан
+ */
 public class MaxEndDateComparator implements Comparator<Contract> {
     @Override
     public int compare(Contract o1, Contract o2) {

@@ -4,6 +4,10 @@ import com.company.сonracts.Contract;
 
 import java.util.Comparator;
 
+/**
+ * Компаратор для сравнения StartDate.
+ * @autor Хачетлов Руслан
+ */
 public class MaxStartDateComparator implements Comparator<Contract> {
 
     @Override

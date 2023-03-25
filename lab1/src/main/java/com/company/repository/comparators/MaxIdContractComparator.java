@@ -4,6 +4,10 @@ import com.company.сonracts.Contract;
 
 import java.util.Comparator;
 
+/**
+ * Компаратор для сравнения Id.
+ * @autor Хачетлов Руслан
+ */
 public class MaxIdContractComparator implements Comparator<Contract> {
 
     @Override

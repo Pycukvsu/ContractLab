@@ -1,29 +1,18 @@
-package com.company;
+package com.company.repository;
 
 import com.company.entities.Gender;
 import com.company.entities.Human;
-import com.company.repository.Storage;
-import com.company.repository.comparators.*;
-import com.company.repository.sorting.BubbleSort;
-import com.company.repository.sorting.ISorted;
-import com.company.repository.sorting.SelectionSort;
-import com.company.repository.sorting.ShellSort;
 import com.company.сonracts.*;
-import org.junit.Test;
-
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.function.Predicate;
 
+class StorageTest {
 
-public class Program {
-
-    public static void main(String[] args) {
-        // write your code here
-    }
-
-    public void addContract(Storage storage){
+    @org.junit.jupiter.api.Test
+    void addContract() {
+        Storage storage = new Storage();
         Human human = new Human(69,
                 "Иванов Иван Иванович",
                 LocalDate.of(1980, 10,10),
@@ -91,11 +80,8 @@ public class Program {
         ));
     }
 
-    /**
-     * Тест для удаления контрактов по айди
-     */
-    @Test
-    public void deletionTest(){
+    @org.junit.jupiter.api.Test
+    void deleteContractById() {
         Storage storage = new Storage();
 
         storage.addContract(new ContractDigitalTV(123));
@@ -119,14 +105,13 @@ public class Program {
         storage.addContract(new ContractWiredInternet(107));
         storage.addContract(new ContractDigitalTV(30));
         storage.addContract(new ContractWiredInternet(108));
+        storage.addContract(new ContractWiredInternet(109));
+        storage.addContract(new ContractWiredInternet(115));
         storage.viewAllContracts();
     }
 
-    /**
-     * Тест получения контрактов по айди
-     */
-    @Test
-    public void gettingByIdTest(){
+    @org.junit.jupiter.api.Test
+    void getContractById() {
         Storage storage = new Storage();
 
         storage.addContract(new ContractDigitalTV(123));
@@ -146,32 +131,10 @@ public class Program {
         storage.getContractById(1000);
 
         System.out.println();
-
     }
 
-    /**
-     * Тест всего функционала
-     */
-    @Test
-    public void testAllFunctionality(){
-        Storage storage = new Storage();
-
-        addContract(storage);
-
-        storage.viewAllContracts();
-
-        storage.getContractById(205);
-
-        storage.deleteContractById(205);
-
-        storage.viewAllContracts();
-    }
-
-    /**
-     * Тест метода find() с помощью предиката
-     */
-    @Test
-    public void  TestFindMethod(){
+    @org.junit.jupiter.api.Test
+    void find() {
         Storage storage = new Storage();
 
         Human human = new Human(69,
@@ -268,33 +231,5 @@ public class Program {
         List<Contract> contracts5 = storage.find(condition5);
     }
 
-    @Test
-    public void testSorting(){
-        Storage storage = new Storage();
 
-        addContract(storage);
-
-        System.out.println("Первая сортировка: ");
-        ISorted methodSort = new SelectionSort();
-        methodSort.sort(storage, new MaxNumberContractComparator());
-        storage.viewAllContracts();
-
-        System.out.println("Вторая сортировка: ");
-        ISorted methodSort2 = new BubbleSort();
-        methodSort2.sort(storage, new MaxIdContractComparator());
-        storage.viewAllContracts();
-
-        System.out.println("Третья сортировка: ");
-        ISorted methodSort3 = new ShellSort();
-        methodSort3.sort(storage, new MaxStartDateComparator());
-        storage.viewAllContracts();
-
-        System.out.println("Четвертая сортировка: ");
-        methodSort.sort(storage, new MaxEndDateComparator());
-        storage.viewAllContracts();
-
-        System.out.println("Пятая сортировка: ");
-        methodSort2.sort(storage, new HumanIdComparator());
-        storage.viewAllContracts();
-    }
 }
